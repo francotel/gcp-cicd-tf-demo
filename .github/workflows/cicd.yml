@@ -12,8 +12,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Adding markdown
-        run: echo '### Hello world! 🚀' >> $GITHUB_STEP_SUMMARY
 
       - name: Use Node.js
         uses: actions/setup-node@v3
@@ -26,5 +24,5 @@ jobs:
       - run: npm run build --if-present
         working-directory: ./app
 
-      - run: CI=true npm test
+      - run: npm test
         working-directory: ./app
