@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "gcp-build": "",
-    "test": "jest"
+    "test": "jest --forceExit"
   },
   "author": "",
   "license": "ISC",
