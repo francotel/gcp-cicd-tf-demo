@@ -8,7 +8,7 @@ describe('GET /', () => {
     const response = await request(app).get('/');
     
     expect(response.status).toBe(200);
-    expect(response.text).toContain('Hora de Lima');
-    expect(response.text).toContain('Hora de Austin');
+    expect(response.text).toContain('limaTime');
+    expect(response.text).toContain('austinTime');
   });
 });
