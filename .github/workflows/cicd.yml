@@ -36,7 +36,7 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: 'google-github-actions/auth@v2'
         with:
           project_id: ${{ secrets.PROJECT_ID }}
@@ -46,5 +46,10 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
           terraform_wrapper: true
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
 
 
