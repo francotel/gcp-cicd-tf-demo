@@ -1,6 +1,15 @@
 name: Node.js CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  inputs:
+    tf_version:
+      description: Terraform version to use when tf_edition is set to 'oss'
+      required: false
+      type: string
+      default: 1.6.4
 
 env:
   FORCE_COLOR: "3"
@@ -26,3 +35,15 @@ jobs:
 
       - run: npm test
         working-directory: ./app
+
+  terraform:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ inputs.tf_version }}
+          terraform_wrapper: false
+
+
