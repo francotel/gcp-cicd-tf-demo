@@ -19,12 +19,8 @@ app.get("/ping", (req, res) => {
 })
 
 // Iniciar el servidor en el puerto 3000
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor iniciado en el puerto ${PORT}`);
-  console.log('Press Ctrl+C to quit.');
-});
-
-
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Server is listening on port 3000")
+})
 
 module.exports = app; // Exportar la aplicación para pruebas

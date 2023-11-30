@@ -156,3 +156,6 @@ npm-debug.log
 ##############################
 .vscode/
 .code-workspace
+
+# Ignore generated credentials from google-github-actions/auth
+gha-creds-*.json
