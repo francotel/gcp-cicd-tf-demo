@@ -4,15 +4,10 @@ on:
   push:
     branches:
       - main
-  inputs:
-    tf_version:
-      description: Terraform version to use when tf_edition is set to 'oss'
-      required: false
-      type: string
-      default: 1.6.4
 
 env:
   FORCE_COLOR: "3"
+  TF_VERSION: 1.6.4
 
 jobs:
   build:
@@ -43,7 +38,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: ${{ inputs.tf_version }}
-          terraform_wrapper: false
+          terraform_version: ${{ env.TF_VERSION }}
+          terraform_wrapper: true
 
 
