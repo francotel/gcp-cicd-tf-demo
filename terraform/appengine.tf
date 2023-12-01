@@ -64,6 +64,13 @@ resource "google_sql_database_instance" "main" {
   }
 }
 
+resource "google_sql_database" "default" {
+  name       = "database"
+  instance   = google_sql_database_instance.main.name
+  charset    = "UTF8"
+  collation  = "en_US.UTF8"
+}
+
 output "db" {
   value = google_sql_database_instance.main
   sensitive = true
