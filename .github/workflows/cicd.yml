@@ -89,7 +89,7 @@ jobs:
         id: deploy-appengine
         uses: google-github-actions/deploy-appengine@v1
         with:
-          version: deploy-${GITHUB_SHA::6}
+          version: "deploy-${GITHUB_SHA::6}"
           working_directory: app
 
   #     - name: 'Verify deployment'
