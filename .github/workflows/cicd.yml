@@ -83,27 +83,29 @@ jobs:
       - run: terraform apply -var="deployment_version=deploy-${GITHUB_SHA::6}" --auto-approve
         working-directory: terraform
 
-# gcloud app services set-traffic default --splits=$dateString=1 --quiet
+# gcloud app services set-traffic default --splits=deploy-${GITHUB_SHA::6}=1 --quiet
 
-      - run: echo '${GITHUB_SHA::6}'
+      - run: echo ${GITHUB_SHA::6}
       - run: printenv
 
-      # - run: gcloud app services set-traffic default --splits=deploy-${GITHUB_SHA::6} --quiet
-      
-      - name: gcloud deploy appengine
-        id: deploy-appengine
-        uses: google-github-actions/deploy-appengine@v1
-        with:
-          version: deploy-${GITHUB_SHA::6}
-          working_directory: app
+      - name: Deploy appengine
+        run: gcloud app services set-traffic default --splits=deploy-${GITHUB_SHA::6}=1 --quiet
+        working-directory: app
 
-      - name: 'Verify deployment'
-        run: |-
-          curl '${{ steps.deploy-appengine.outputs.url }}' \
-            --silent \
-            --fail \
-            --location \
-            --retry 5 \
-            --retry-connrefused \
-            --retry-delay 5 \
-            --retry-max-time 300
+      # - name: gcloud deploy appengine
+      #   id: deploy-appengine
+      #   uses: google-github-actions/deploy-appengine@v1
+      #   with:
+      #     version: deploy-$GITHUB_SHA
+      #     working_directory: app
+
+      # - name: 'Verify deployment'
+      #   run: |-
+      #     curl '${{ steps.deploy-appengine.outputs.url }}' \
+      #       --silent \
+      #       --fail \
+      #       --location \
+      #       --retry 5 \
+      #       --retry-connrefused \
+      #       --retry-delay 5 \
+      #       --retry-max-time 300
