@@ -60,5 +60,13 @@ jobs:
       - name: Gcloud
         run: gcloud auth list
 
+      - name: Update app.yaml
+        run: |-
+          echo "service: ${{ github.job }}-${{ github.run_number }}" >> app.yaml
+        working-directory: app
 
+      - name: Cat app.yaml'
+        run: |-
+          cat app.yaml
+        working-directory: app
 
