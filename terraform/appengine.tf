@@ -62,6 +62,7 @@ resource "google_sql_database_instance" "main" {
   settings {
     tier = "db-f1-micro"
   }
+
 }
 
 resource "google_sql_database" "default" {
