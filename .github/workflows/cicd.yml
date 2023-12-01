@@ -83,16 +83,14 @@ jobs:
       - run: terraform apply -var="deployment_version=deploy-${GITHUB_SHA::6}" --auto-approve
         working-directory: terraform
 
-      # - name: Terraform Apply
-      #   id: plan
-      #   run: terraform plan -var="deployment_version=deploy-${GITHUB_SHA::6}"
-      #   working-directory: terraform
+# gcloud app services set-traffic default --splits=$dateString=1 --quiet
 
-  #     - name: gcloud deploy appengine
-  #       id: deploy-appengine
-  #       uses: google-github-actions/deploy-appengine@v1
-  #       with:
-  #         working_directory: app
+      - name: gcloud deploy appengine
+        id: deploy-appengine
+        uses: google-github-actions/deploy-appengine@v1
+        with:
+          version: deploy-${GITHUB_SHA::6}
+          working_directory: app
 
   #     - name: 'Verify deployment'
   #       run: |-
