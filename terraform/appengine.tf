@@ -66,6 +66,7 @@ resource "google_sql_database_instance" "main" {
 
 output "db" {
   value = google_sql_database_instance.main
+  sensitive = true
 }
 
 resource "google_app_engine_standard_app_version" "latest_version" {
@@ -99,6 +100,10 @@ resource "google_app_engine_standard_app_version" "latest_version" {
       min_instances                 = 0
       max_instances                 = 2
     }
+  }
+
+  env_variables = {
+    DB_ADDR = "${google_redis_instance.data.host}:${google_redis_instance.data.port}"
   }
 
   inbound_services          = []
