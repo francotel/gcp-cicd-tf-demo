@@ -26,5 +26,17 @@ resource "google_app_engine_application_url_dispatch_rules" "appengine-app-dispa
 resource "google_app_engine_application" "default" {
   project     = var.project_id
   location_id = var.region
-  
+}
+
+resource "google_storage_bucket" "app" {
+  name          = "${var.project_id}-${random_id.app.hex}-app"
+  location      = var.region
+  force_destroy = true
+  versioning {
+    enabled = true
+  }
+}
+
+resource "random_id" "app" {
+  byte_length = 8
 }
