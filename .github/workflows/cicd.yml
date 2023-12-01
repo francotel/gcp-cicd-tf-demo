@@ -75,7 +75,7 @@ jobs:
       - name: gcloud deploy appengine
         id: deploy-appengine
         uses: google-github-actions/deploy-appengine@main
-        working_directory: app
+          working_directory: app
 
       # - name: Update app.yaml
       #   run: |-
