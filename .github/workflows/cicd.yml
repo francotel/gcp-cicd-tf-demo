@@ -72,8 +72,8 @@ jobs:
       - name: Gcloud
         run: gcloud auth list
 
-      - uses: google-github-actions/deploy-appengine@main
-        working-directory: app
+      # - uses: google-github-actions/deploy-appengine@main
+      #   working-directory: app
         # with:
         #   credentials: ${{ secrets.gcp_credentials }}
 
