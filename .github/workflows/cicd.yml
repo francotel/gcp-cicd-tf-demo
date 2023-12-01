@@ -54,7 +54,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -var="deploy-${GITHUB_SHA::6}"
+        run: terraform plan -var="deployment_version=deploy-${GITHUB_SHA::6}"
         working-directory: terraform
 
       # - run: echo ${GITHUB_SHA::6}
