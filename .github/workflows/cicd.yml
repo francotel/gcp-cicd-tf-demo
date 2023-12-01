@@ -94,7 +94,7 @@ jobs:
 
       - name: 'Verify deployment'
         run: |-
-          curl https://rich-synapse-400718.ue.r.appspot.com/' \
+          curl https://rich-synapse-400718.ue.r.appspot.com \
             --silent \
             --fail \
             --location \
