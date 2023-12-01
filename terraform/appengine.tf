@@ -1,12 +1,12 @@
-resource "google_project_service" "cloudbuild_api" {
-  project                    = var.project_id
-  service                    = "cloudbuild.googleapis.com"
-  disable_dependent_services = false
-  disable_on_destroy         = false
-  lifecycle {
-    ignore_changes = [project]
-  }
-}
+# resource "google_project_service" "cloudbuild_api" {
+#   project                    = var.project_id
+#   service                    = "cloudbuild.googleapis.com"
+#   disable_dependent_services = false
+#   disable_on_destroy         = false
+#   lifecycle {
+#     ignore_changes = [project]
+#   }
+# }
 
 # resource "google_project_service" "app_engine" {
 #   project = var.project_id
@@ -58,6 +58,7 @@ resource "google_project_service" "cloudbuild_api" {
 #   name             = "main-instance"
 #   database_version = "POSTGRES_15"
 #   region           = var.region
+#   deletion_protection = false
 
 #   settings {
 #     tier = "db-f1-micro"
