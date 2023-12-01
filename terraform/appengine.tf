@@ -40,3 +40,15 @@ resource "google_storage_bucket" "app" {
 resource "random_id" "app" {
   byte_length = 8
 }
+
+data "archive_file" "app_dist" {
+  type        = "zip"
+  source_dir  = "../app"
+  output_path = "../app/app.zip"
+}
+
+resource "google_storage_bucket_object" "app" {
+  name   = "app.zip"
+  source = data.archive_file.function_dist.output_path
+  bucket = google_storage_bucket.app.name
+}
