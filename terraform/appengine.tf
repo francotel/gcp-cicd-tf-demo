@@ -48,11 +48,24 @@ data "archive_file" "app_dist" {
   output_path = "../app/app.zip"
 }
 
-
 resource "google_storage_bucket_object" "app" {
   name           = "app.zip"
   source         = data.archive_file.app_dist.output_path
   bucket         = google_storage_bucket.app.name
+}
+
+resource "google_sql_database_instance" "main" {
+  name             = "main-instance"
+  database_version = "POSTGRES_15"
+  region           = var.region
+
+  settings {
+    tier = "db-f1-micro"
+  }
+}
+
+output "db" {
+  value = google_sql_database_instance.main
 }
 
 resource "google_app_engine_standard_app_version" "latest_version" {
