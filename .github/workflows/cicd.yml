@@ -86,6 +86,8 @@ jobs:
 # gcloud app services set-traffic default --splits=$dateString=1 --quiet
 
       - run: echo '${GITHUB_SHA::6}'
+
+      # - run: gcloud app services set-traffic default --splits=deploy-${GITHUB_SHA::6} --quiet
       
       - name: gcloud deploy appengine
         id: deploy-appengine
