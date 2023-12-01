@@ -9,3 +9,7 @@ variable "region" {
   description = "The GCP Region for the GCP Project"
   default     = "us-east1"
 }
+
+variable "deployment_version" {
+  type = string
+}
