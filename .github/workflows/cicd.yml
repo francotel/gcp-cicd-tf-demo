@@ -59,15 +59,22 @@ jobs:
 
       # - run: echo ${GITHUB_SHA::6}
 
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   needs: terraform
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: 'google-github-actions/auth@v2'
-  #       with:
-  #         project_id: ${{ secrets.PROJECT_ID }}
-  #         credentials_json: ${{ secrets.DEPLOY_KEY_FILE }}
+  deploy:
+    runs-on: ubuntu-latest
+    needs: terraform
+    steps:
+      - uses: actions/checkout@v4
+      - uses: 'google-github-actions/auth@v2'
+        with:
+          project_id: ${{ secrets.PROJECT_ID }}
+          credentials_json: ${{ secrets.DEPLOY_KEY_FILE }}
+
+      - run: terraform plan -var="deployment_version=deploy-${GITHUB_SHA::6}"
+
+      # - name: Terraform Apply
+      #   id: plan
+      #   run: terraform plan -var="deployment_version=deploy-${GITHUB_SHA::6}"
+      #   working-directory: terraform
 
   #     - name: gcloud deploy appengine
   #       id: deploy-appengine
