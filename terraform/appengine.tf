@@ -17,8 +17,8 @@ resource "google_project_service" "app_engine" {
 
 resource "google_app_engine_application_url_dispatch_rules" "appengine-app-dispatch-rules" {
   dispatch_rules {
-    domain = "*"
-    path = "/*"
+    domain  = "*"
+    path    = "/*"
     service = "default"
   }
 }
@@ -32,6 +32,7 @@ resource "google_storage_bucket" "app" {
   name          = "${var.project_id}-${random_id.app.hex}-app"
   location      = var.region
   force_destroy = true
+  storage_class = "STANDARD"
   versioning {
     enabled = true
   }
@@ -47,17 +48,19 @@ data "archive_file" "app_dist" {
   output_path = "../app/app.zip"
 }
 
+
 resource "google_storage_bucket_object" "app" {
-  name   = "app.zip"
-  source = data.archive_file.app_dist.output_path
-  bucket = google_storage_bucket.app.name
+  name           = "app.zip"
+  source         = data.archive_file.app_dist.output_path
+  bucket         = google_storage_bucket.app.name
 }
 
 resource "google_app_engine_standard_app_version" "latest_version" {
 
-  version_id = var.deployment_version
-  service    = "default"
-  runtime    = "nodejs20"
+  version_id      = var.deployment_version
+  service         = "default"
+  runtime         = "nodejs20"
+  app_engine_apis = false
 
   entrypoint {
     shell = "node app.js"
@@ -84,6 +87,19 @@ resource "google_app_engine_standard_app_version" "latest_version" {
       max_instances                 = 2
     }
   }
-  noop_on_destroy = true
+
+  inbound_services          = []
+  handlers {
+    auth_fail_action = "AUTH_FAIL_ACTION_REDIRECT"
+    login            = "LOGIN_OPTIONAL"
+    security_level   = "SECURE_OPTIONAL"
+    url_regex        = ".*"
+
+    script {
+      script_path = "auto"
+    }
+  }
+
+  noop_on_destroy           = true
   delete_service_on_destroy = true
 }
