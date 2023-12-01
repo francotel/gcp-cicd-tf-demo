@@ -57,5 +57,8 @@ jobs:
         run: terraform plan
         working-directory: terraform
 
+      - name: Gcloud
+        run: gcloud auth list
+
 
 
