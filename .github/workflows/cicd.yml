@@ -69,6 +69,16 @@ jobs:
           project_id: ${{ secrets.PROJECT_ID }}
           credentials_json: ${{ secrets.DEPLOY_KEY_FILE }}
 
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+          terraform_wrapper: true
+
+      - name: Terraform Init
+        id: init
+        run: terraform init -upgrade
+        working-directory: terraform
+
       - run: terraform plan -var="deployment_version=deploy-${GITHUB_SHA::6}"
 
       # - name: Terraform Apply
