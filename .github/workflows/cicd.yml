@@ -75,7 +75,7 @@ jobs:
       - name: gcloud deploy appengine
         id: deploy-appengine
         uses: google-github-actions/deploy-appengine@main
-        working-directory: app
+        working_directory: app
 
       # - name: Update app.yaml
       #   run: |-
@@ -89,7 +89,7 @@ jobs:
 
       - name: 'Verify deployment'
         run: |-
-          curl '${{ ${{ steps.deploy-appengine.outputs.url }} }}' \
+          curl '${{ steps.deploy-appengine.outputs.url }}' \
             --silent \
             --fail \
             --location \
