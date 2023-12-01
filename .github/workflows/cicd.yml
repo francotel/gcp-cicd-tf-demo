@@ -67,16 +67,15 @@ jobs:
           project_id: ${{ secrets.PROJECT_ID }}
           credentials_json: ${{ secrets.DEPLOY_KEY_FILE }}
 
-      - uses: 'google-github-actions/setup-gcloud@main'
+      # - uses: 'google-github-actions/setup-gcloud@main'
 
       - name: Gcloud
         run: gcloud auth list
 
-      # - uses: google-github-actions/deploy-appengine@main
-      #   working-directory: app
-        # with:
-        #   credentials: ${{ secrets.gcp_credentials }}
-
+      - name: gcloud deploy appengine
+        id: deploy-appengine
+        uses: google-github-actions/deploy-appengine@main
+        working_directory: app
 
       # - name: Update app.yaml
       #   run: |-
@@ -90,7 +89,7 @@ jobs:
 
       - name: 'Verify deployment'
         run: |-
-          curl '${{ steps.deploy.outputs.url }}' \
+          curl '${{ ${{ steps.deploy-appengine.outputs.url }} }}' \
             --silent \
             --fail \
             --location \
