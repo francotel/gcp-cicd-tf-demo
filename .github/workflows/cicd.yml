@@ -80,7 +80,7 @@ jobs:
         run: terraform init -upgrade
         working-directory: terraform
 
-      - run: terraform plan -var="deployment_version=deploy-${GITHUB_SHA::6}"
+      - run: terraform apply -var="deployment_version=deploy-${GITHUB_SHA::6}" --auto-approve
         working-directory: terraform
 
       # - name: Terraform Apply
