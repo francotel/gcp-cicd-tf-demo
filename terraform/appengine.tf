@@ -102,9 +102,9 @@ resource "google_app_engine_standard_app_version" "latest_version" {
     }
   }
 
-  env_variables = {
-    DB_ADDR = "${google_redis_instance.data.host}:${google_redis_instance.data.port}"
-  }
+  # env_variables = {
+  #   DB_ADDR = "${google_sql_database_instance.main.host}:${google_sql_database_instance.main.port}"
+  # }
 
   inbound_services          = []
   handlers {
