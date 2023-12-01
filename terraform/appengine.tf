@@ -74,14 +74,14 @@ resource "google_app_engine_standard_app_version" "latest_version" {
   automatic_scaling {
     max_concurrent_requests = 10
     min_idle_instances      = 1
-    max_idle_instances      = 3
+    max_idle_instances      = 2
     min_pending_latency     = "1s"
     max_pending_latency     = "5s"
     standard_scheduler_settings {
       target_cpu_utilization        = 0.5
       target_throughput_utilization = 0.75
       min_instances                 = 0
-      max_instances                 = 4
+      max_instances                 = 2
     }
   }
   noop_on_destroy = true
