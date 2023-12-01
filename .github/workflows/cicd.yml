@@ -75,10 +75,10 @@ jobs:
           terraform_version: ${{ env.TF_VERSION }}
           terraform_wrapper: true
 
-      # - name: Terraform Init
-      #   id: init
-      #   run: terraform init -upgrade
-      #   working-directory: terraform
+      - name: Terraform Init
+        id: init
+        run: terraform init -upgrade
+        working-directory: terraform
 
       - run: terraform plan -var="deployment_version=deploy-${GITHUB_SHA::6}"
         working-directory: terraform
