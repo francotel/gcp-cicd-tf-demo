@@ -49,6 +49,6 @@ data "archive_file" "app_dist" {
 
 resource "google_storage_bucket_object" "app" {
   name   = "app.zip"
-  source = data.archive_file.function_dist.output_path
+  source = data.archive_file.app_dist.output_path
   bucket = google_storage_bucket.app.name
 }
