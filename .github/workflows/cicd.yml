@@ -58,6 +58,7 @@ jobs:
         working-directory: terraform
 
       - run: ls -la
+      - run: echo ${GITHUB_SHA::6}
 
   # deploy:
   #   runs-on: ubuntu-latest
